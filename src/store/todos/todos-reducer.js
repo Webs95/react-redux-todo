@@ -1,6 +1,5 @@
 import { COMPLETE_TODO, ADD_TODO, DELETE_TODO } from './todos-const';
 
-
 export const todos = (state = [], action) => {
   switch (action.type) {
     case ADD_TODO: {
@@ -9,8 +8,8 @@ export const todos = (state = [], action) => {
         {
           id: Date.now(),
           title: action.title,
-          completed: false
-        }
+          completed: false,
+        },
       ];
     }
     case DELETE_TODO: {

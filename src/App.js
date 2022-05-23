@@ -1,53 +1,16 @@
-import React from 'react';
-import { createTodo, deleteTodo, completeTodo } from './redux/store';
-import { useSelector, useDispatch } from 'react-redux';
+import { CreateTodo } from './components/CreateTodo';
+import { TodoList } from './components/TodoList';
+import { Filters } from './components/Filters';
+
 import './styles/App.scss';
 
-function App() {
+export default function App() {
   return (
     <div className='App'>
-      <h2>React-Redux Todo List</h2>
+      <h1>React-Redux Todo</h1>
       <CreateTodo />
+      <Filters />
       <TodoList />
     </div>
   );
 }
-
-//Component CreateTodo
-const CreateTodo = () => {
-  const dispatch = useDispatch();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(createTodo(e.target.title.value));
-    e.target.reset();
-  };
-  return (
-    <form className='inputs' onSubmit={handleSubmit}>
-      <input type='text' name='title' placeholder='Create new todo' />
-      <input type='submit' value='Create' />
-    </form>
-  );
-};
-
-//Component TodoList
-const TodoList = () => {
-  const todos = useSelector((state) => state);
-  const dispatch = useDispatch();
-  return (
-    <ul>
-      {todos.map((todo) => (
-        <li key={todo.title}>
-          <input
-            type='checkbox'
-            checked={todo.complete}
-            onChange={() => dispatch(completeTodo(todo.id))}
-          />{' '}
-          {todo.title}
-          <button onClick={() => dispatch(deleteTodo(todo.id))}>Delete</button>
-        </li>
-      ))}
-    </ul>
-  );
-};
-
-export default App;
