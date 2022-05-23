@@ -1,17 +1,35 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { createTodo, deleteTodo, completeTodo } from './redux/store';
+import { useSelector, useDispatch } from 'react-redux';
+import './styles/App.scss';
 
 function App() {
   return (
     <div className='App'>
-      <h1>React-Redux Todo List</h1>
-      <CreateTodo/>
-      <TodoList/>
+      <h2>React-Redux Todo List</h2>
+      <CreateTodo />
+      <TodoList />
     </div>
   );
 }
 
+//Component CreateTodo
+const CreateTodo = () => {
+  const dispatch = useDispatch();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createTodo(e.target.title.value));
+    e.target.reset();
+  };
+  return (
+    <form className='inputs' onSubmit={handleSubmit}>
+      <input type='text' name='title' placeholder='Create new todo' />
+      <input type='submit' value='Create' />
+    </form>
+  );
+};
+
+//Component TodoList
 const TodoList = () => {
   const todos = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -31,20 +49,5 @@ const TodoList = () => {
     </ul>
   );
 };
-
-const CreateTodo = () => {
-  const dispatch = useDispatch();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(createTodo(e.target.title.value));
-    e.target.reset();
-  };
-  return(
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="title" placeholder='Create new todo'/>
-      <input type="submit" value="Create" />
-    </form>
-  )
-}
 
 export default App;

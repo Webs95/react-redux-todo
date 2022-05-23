@@ -1,11 +1,16 @@
 import { createStore } from 'redux';
+import {
+  ADD_TODO,
+  DELETE_TODO,
+  COMPLETE_TODO,
+} from '../store/todos/todos-const';
 
 //Create Reducer
 let initValueById = 0;
 
 const todos = (state = [], action) => {
   switch (action.type) {
-    case 'ADD_TODO': {
+    case ADD_TODO: {
       return [
         ...state,
         {
@@ -15,7 +20,7 @@ const todos = (state = [], action) => {
         },
       ];
     }
-    case 'DELETE_TODO': {
+    case DELETE_TODO: {
       return state.filter((todo) => todo.id !== action.id);
     }
     case 'COMPLETE_TODO': {
@@ -30,20 +35,23 @@ const todos = (state = [], action) => {
 };
 
 //Create store
-export const store = createStore(todos);
+export const store = createStore(
+  todos,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 //Create Actions
 export const createTodo = (title) => ({
-  type: 'ADD_TODO',
+  type: ADD_TODO,
   title,
 });
 
 export const deleteTodo = (id) => ({
-  type: 'DELETE_TODO',
+  type: DELETE_TODO,
   id,
 });
 
 export const completeTodo = (id) => ({
-  type: 'COMPLETE_TODO',
+  type: COMPLETE_TODO,
   id,
 });
